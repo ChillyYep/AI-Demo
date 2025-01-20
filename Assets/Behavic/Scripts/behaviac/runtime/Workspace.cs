@@ -304,19 +304,7 @@ namespace behaviac
             EFF_default = EFF_xml | EFF_bson | EFF_cs,  //use the format specified by SetWorkspaceSettings
         };
 
-        private EFileFormat fileFormat_ = EFileFormat.EFF_xml;
-
-        public EFileFormat FileFormat
-        {
-            get
-            {
-                return fileFormat_;
-            }
-            set
-            {
-                fileFormat_ = value;
-            }
-        }
+        public EFileFormat FileFormat = EFileFormat.EFF_xml;
 
         private static string GetDefaultFilePath()
         {

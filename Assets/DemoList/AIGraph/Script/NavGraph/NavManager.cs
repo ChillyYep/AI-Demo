@@ -1,11 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class Singleton_CSharp<T> where T : new()
+using UnityEngine.Assertions;
+
+public class Singleton_CSharp<T> where T : class, new()
 {
-    protected Singleton_CSharp() { }
-    private static T _instance = new T();
-    public static T Instance { get; set; } = _instance;
+    protected Singleton_CSharp()
+    {
+        //System.Diagnostics.Debug.Assert(switchOn, "不能显式调用Singleton_CSharp的构造器");
+        //只有switchOn开启才会构造该单例，而switchOn只会在Instance中开启
+        //Assert.IsTrue(switchOn, "不能显式调用Singleton_CSharp的构造器");
+        Assert.IsNull(_instance, "不能显式调用Singleton_CSharp的构造器");
+        _instance = this as T;
+    }
+    //protected static bool switchOn = false;
+    protected static T _instance;
+    public static T Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                new T();
+            }
+            return _instance;
+        }
+    }
 }
 namespace AIDemo.Graph
 {
